@@ -5,7 +5,7 @@
  	{
 	 	name: { type: String, required: true},
 	 	box: { type: mongoose.Schema.ObjectId, ref: 'Box'},
-	 	camera: { type: Schema.ObjectId, ref: 'Camera'}
+	 	camera: { type: mongoose.Schema.ObjectId, ref: 'Camera'}
  	}, 
  	{ timestamps: true }
  );
