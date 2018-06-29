@@ -4,7 +4,7 @@
  const HomeSchema = new mongoose.Schema(
  	{
 	 	name: { type: String, required: true},
-	 	box: { type: Schema.ObjectId, ref: 'Box'},
+	 	box: { type: mongoose.Schema.ObjectId, ref: 'Box'},
 	 	camera: { type: Schema.ObjectId, ref: 'Camera'}
  	}, 
  	{ timestamps: true }
