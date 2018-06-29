@@ -3,7 +3,7 @@
  // Declare Schema
  const HomeSchema = new mongoose.Schema(
  	{
-	 	name: { type: String, required: true},
+	 	name: { type: String},
 	 	box: { type: mongoose.Schema.ObjectId, ref: 'Box'},
 	 	camera: { type: mongoose.Schema.ObjectId, ref: 'Camera'}
  	}, 

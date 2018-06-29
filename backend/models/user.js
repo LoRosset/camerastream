@@ -4,11 +4,11 @@
  // Declare Schema
  const UserSchema = new mongoose.Schema(
  	{
-	 	name: { type: String, required: true},
+	 	name: { type: String},
 	 	home: { type: mongoose.Schema.ObjectId, ref: 'Home'},
-	 	username: {type: String, required: true, min: 3, max:20},
-	 	password: {type: String, required: true, min: 6, max: 40},
-	 	email: {type: mongoose.SchemaTypes.Email, required: true}
+	 	username: {type: String, min: 3, max:20},
+	 	password: {type: String, min: 6, max: 40},
+	 	email: {type: mongoose.SchemaTypes.Email}
  	}, 
  	{ timestamps: true }
  );

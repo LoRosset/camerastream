@@ -5,7 +5,7 @@
  	{
 	 	ipaddress: { type: String},
 	 	type: { type: String},
-	 	status: { type: Boolean, required: true}
+	 	status: { type: Boolean}
  	}, 
  	{ timestamps: true }
  );
