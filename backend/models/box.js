@@ -1,4 +1,4 @@
- const mongoose = require(‘mongoose’);
+ const mongoose = require('mongoose');
  
  // Declare Schema
  const BoxSchema = new mongoose.Schema(
