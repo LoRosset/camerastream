@@ -29,7 +29,7 @@ router.post('/user/:id/update', user_controller.update)
 router.delete('/user/:id', user_controller.destroy)
 
 //POST login information for authentification
-router.post('/login', user_controller.control)
+//router.post('/login', user_controller.control)
 
 
 			//-----HOME ROUTES-----//
