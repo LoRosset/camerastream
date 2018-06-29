@@ -18,7 +18,6 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(Cors())
 app.use(BodyParser({
-  enableTypes: ['json'],
   jsonLimit: '5mb',
   strict: true,
   onerror: function (err, ctx) {
