@@ -14,7 +14,7 @@
  );
  
  // Declare Model to mongoose with Schema
- const User = mongoose.model('User' UserSchema);
+ const User = mongoose.model('User', UserSchema);
  
  // Export Model to be used in Node
  module.exports = mongoose.model('User');
