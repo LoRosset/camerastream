@@ -26,6 +26,10 @@ app.use(BodyParser({
   }
 }))
 
+app.use(async ctx => {
+    ctx.body = ctx.request.body;
+});
+
 app.use(respond())
 
 // API routes
