@@ -21,7 +21,7 @@ const Camera = require('../models/camera');
 		ctx.body = updatedCamera
 	}
 
-	async function delete (ctx) {
+	async function destroy (ctx) {
 		//Find Camera based on id
 		const id = ctx.params.id
 		const camera = await Camera.findById(id)
@@ -35,5 +35,5 @@ module.exports = {
 	find,
 	create,
 	update,
-	delete
+	destroy
 }

@@ -21,7 +21,7 @@ const User = require('../models/user');
 		ctx.body = updatedUser
 	}
 
-	async function delete (ctx) {
+	async function destroy (ctx) {
 		//Find User based on id
 		const id = ctx.params.id
 		const user = await User.findById(id)
@@ -41,5 +41,5 @@ module.exports = {
 	find,
 	create,
 	update,
-	delete
+	destroy
 }

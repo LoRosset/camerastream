@@ -21,7 +21,7 @@ const Home = require('../models/home');
 		ctx.body = updatedHome
 	}
 
-	async function delete (ctx) {
+	async function destroy (ctx) {
 		//Find Home based on id
 		const id = ctx.params.id
 		const home = await Home.findById(id)
@@ -37,5 +37,5 @@ module.exports = {
 	find,
 	create,
 	update,
-	delete
+	destroy
 }

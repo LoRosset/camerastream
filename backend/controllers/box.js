@@ -21,7 +21,7 @@ const Box = require('../models/box');
 		ctx.body = updatedBox
 	}
 
-	async function delete (ctx) {
+	async function destroy (ctx) {
 		//Find Box based on id
 		const id = ctx.params.id
 		const box = await Box.findById(id)
@@ -35,5 +35,5 @@ module.exports = {
 	find,
 	create,
 	update,
-	delete
+	destroy
 }
