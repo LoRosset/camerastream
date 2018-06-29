@@ -26,7 +26,7 @@ router.post('/user/create', user_controller.create)
 router.post('/user/:id/update', user_controller.update)
 
 //DELETE a user
-router.delete('/user/:id', user_controller.delete)
+router.delete('/user/:id', user_controller.destroy)
 
 //POST login information for authentification
 router.post('/login', user_controller.control)
@@ -43,7 +43,7 @@ router.post('/user/:id/home/create', home_controller.create)
 router.post('/user/:id/home/:id/update', home_controller.update)
 
 //DELETE a specific home
-router.delete('/user/:id/home/:id', home_controller.delete)
+router.delete('/user/:id/home/:id', home_controller.destroy)
 
 
 			//-----BOX ROUTES-----//
@@ -57,7 +57,7 @@ router.post('/user/:id/home/:id/box/create', box_controller.create)
 router.post('/user/:id/home/:id/box/:id', box_controller.update)
 
 //DELETE a specific box
-router.delete('/user/:id/home/:id/box/:id', box_controller.delete)
+router.delete('/user/:id/home/:id/box/:id', box_controller.destroy)
 			
 			//-----CAMERA ROUTES-----//
 //GET cameras for a specific box
@@ -70,6 +70,6 @@ router.post('/user/:id/home/:id/box/:id/camera/create', camera_controller.create
 router.post('/user/:id/home/:id/box/:id/camera/:id', camera_controller.update)
 
 //DELETE a specific camera
-router.delete('/user/:id/home/:id/box/:id/camera/:id', camera_controller.delete)
+router.delete('/user/:id/home/:id/box/:id/camera/:id', camera_controller.destroy)
 
 module.exports = router.routes()
