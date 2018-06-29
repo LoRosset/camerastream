@@ -11,7 +11,7 @@
  );
  
  // Declare Model to mongoose with Schema
- const Home = mongoose.model('Home' HomeSchema);
+ const Home = mongoose.model('Home', HomeSchema);
  
  // Export Model to be used in Node
  module.exports = mongoose.model('Home');

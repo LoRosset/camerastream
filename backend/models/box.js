@@ -11,7 +11,7 @@
  );
  
  // Declare Model to mongoose with Schema
- const Box = mongoose.model('Box' BoxSchema);
+ const Box = mongoose.model('Box', BoxSchema);
  
  // Export Model to be used in Node
  module.exports = mongoose.model('Box');

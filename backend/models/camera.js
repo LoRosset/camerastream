@@ -11,7 +11,7 @@
  );
  
  // Declare Model to mongoose with Schema
- const Camera = mongoose.model('Camera' CameraSchema);
+ const Camera = mongoose.model('Camera', CameraSchema);
  
  // Export Model to be used in Node
  module.exports = mongoose.model('Camera');
