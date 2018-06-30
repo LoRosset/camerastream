@@ -13,7 +13,7 @@ const User = require('../models/user');
 
 	async function update (ctx) {
 		//Find User based on id
-		const id = ctx.params.id
+		const id = ctx.params.user_id
 		const user = await User.findById(id)
 
 		//Update user in database
@@ -23,7 +23,7 @@ const User = require('../models/user');
 
 	async function destroy (ctx) {
 		//Find User based on id
-		const id = ctx.params.id
+		const id = ctx.params.user_id
 		const user = await User.findById(id)
 
 		//Delete user from database
