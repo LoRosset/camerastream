@@ -13,7 +13,7 @@ const Camera = require('../models/camera');
 
 	async function update (ctx) {
 		//Find Camera based on id
-		const id = ctx.params.id
+		const id = ctx.params.camera_id
 		const camera = await Camera.findById(id)
 
 		//Update camera in database
@@ -23,7 +23,7 @@ const Camera = require('../models/camera');
 
 	async function destroy (ctx) {
 		//Find Camera based on id
-		const id = ctx.params.id
+		const id = ctx.params.camera_id
 		const camera = await Camera.findById(id)
 
 		//Delete camera from database

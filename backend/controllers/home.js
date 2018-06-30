@@ -13,7 +13,7 @@ const Home = require('../models/home');
 
 	async function update (ctx) {
 		//Find Home based on id
-		const id = ctx.params.id
+		const id = ctx.params.home_id
 		const home = await Home.findById(id)
 
 		//Update home in database
@@ -23,7 +23,7 @@ const Home = require('../models/home');
 
 	async function destroy (ctx) {
 		//Find Home based on id
-		const id = ctx.params.id
+		const id = ctx.params.home_id
 		const home = await Home.findById(id)
 
 		//Delete home from database

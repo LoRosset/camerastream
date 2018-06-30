@@ -13,7 +13,7 @@ const Box = require('../models/box');
 
 	async function update (ctx) {
 		//Find Box based on id
-		const id = ctx.params.id
+		const id = ctx.params.box_id
 		const box = await Box.findById(id)
 
 		//Update box in database
@@ -23,7 +23,7 @@ const Box = require('../models/box');
 
 	async function destroy (ctx) {
 		//Find Box based on id
-		const id = ctx.params.id
+		const id = ctx.params.box_id
 		const box = await Box.findById(id)
 
 		//Delete box from database
