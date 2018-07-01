@@ -31,6 +31,7 @@ app.use(respond())
 require('./routes')(router)
 app.use(router.routes())
 app.use(router.allowedMethods())
+app.use(require('koa-static')('./build'))
 
 //Mongoose
 mongoose.connect('mongodb://admin:admincamera123@ds219641.mlab.com:19641/camera')

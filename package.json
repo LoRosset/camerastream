@@ -4,7 +4,10 @@
   "description": "Travail de Bachelor",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently --kill-others \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd camerastream-frontend && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -20,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/LoRosset/camerastream/issues"
   },
-  "homepage": "https://github.com/LoRosset/camerastream#readme"
+  "homepage": "https://github.com/LoRosset/camerastream#readme",
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  }
 }
