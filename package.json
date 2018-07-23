@@ -26,5 +26,9 @@
   "homepage": "https://github.com/LoRosset/camerastream#readme",
   "devDependencies": {
     "concurrently": "^3.6.0"
+  },
+  "dependencies": {
+    "camerastream-frontend": "file:camerastream-frontend",
+    "koalerplate": "file:backend"
   }
 }
