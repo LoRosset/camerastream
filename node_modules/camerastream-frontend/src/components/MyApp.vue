@@ -1,15 +1,15 @@
 <template>
   <v-app id="Myapp">
-    <!-- Toolbar -->
+  <!-- Toolbar -->
     <v-toolbar color="green" dark fluid fixed fill-height app>
       <v-toolbar-title>
-        <v-btn flat :to="{name: 'MyApp'}">{{title}}</v-btn>
+        <v-btn flat :to="{name: 'HelloWorld'}">{{title}}</v-btn>
       </v-toolbar-title>
-    
+
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat v-for="menu in menus" :key='index' :to={name:menu.route}>
+        <v-btn flat v-for="menu in menus" :key='menu.index' :to={name:menu.route}>
           {{menu.name}}
         </v-btn>
 
@@ -18,23 +18,7 @@
 
     <router-view></router-view>
 
-
-    <!-- Content -->
-    <v-content>
-      <v-container>
-        <v-layout align-start justify-space-around column fill-height/>
-        <v-flex xs12>
-        <div class="content">
-          <h1>Main Content</h1>
-          <h1>Second content</h1>
-        </div>
-      </v-flex>
-      </v-layout>
-    </v-container>
-  </v-content>
-
-
-
+  <!-- Content -->
 
   <!-- Footer -->
   <v-footer color="green" app>
@@ -50,8 +34,8 @@ export default {
   data () {
     return {
       title: 'Camera-Stream',
-      menus:[
-      {name:"Logout", route:"Login"}
+      menus: [
+        {name: 'Logout', route: 'Login'}
       ]
     }
   }
