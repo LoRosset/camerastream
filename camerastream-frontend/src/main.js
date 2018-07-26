@@ -7,6 +7,7 @@ import Vuetify from 'vuetify'
 
 import axios from './backend/vue-axios'
 import('../node_modules/vuetify/dist/vuetify.min.css')
+import('../node_modules/material-icons/iconfont/material-icons.css')
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
