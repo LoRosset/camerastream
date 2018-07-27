@@ -1,6 +1,7 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
-	async function find (ctx) {
+	async function findAll (ctx) {
 		const users = await User.find({})
 		ctx.body = users
 	}
@@ -31,15 +32,33 @@ const User = require('../models/user');
 		ctx.body = deletedUser
 	}
 
-	exports.control = function(req, res) {
-		res.send('NOT IMPLEMENTED : login');
+	async function control(ctx) {
+		const usernameGiven = ctx.request.body.username
+		const passwordGiven = ctx.request.body.password
+		var password = ''
+		await User.findOne({ 'username': usernameGiven },'name password', function (err, user){
+			if (err) return handleError(err);
+			password = user.password
+		})
+		if (passwordGiven === password) {
+			ctx.status = 200;
+			ctx.body = {
+      			token: jwt.sign({ user_id: user._id, admin: true }, 'A very secret key'), //Should be the same secret key as the one used in ./jwt.js
+      			message: "Successfully logged in!"
+  			};
+		}
+		else {
+			ctx.status = ctx.status = 401;
+			ctx.body = {
+				message: "Authentication failed"
+			};
+		}
 	}
 
-
-
 module.exports = {
-	find,
+	findAll,
 	create,
 	update,
-	destroy
+	destroy,
+	control
 }

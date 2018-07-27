@@ -6,7 +6,7 @@ const BodyParser = require('koa-bodyparser')
 const Helmet = require('koa-helmet')
 const respond = require('koa-respond')
 const mongoose = require('mongoose')
-
+const koaJwt = require('./middlewares/jwt');
 const app = new Koa()
 const router = new Router()
 
@@ -35,5 +35,8 @@ app.use(require('koa-static')('./build'))
 
 //Mongoose
 mongoose.connect('mongodb://admin:admincamera123@ds219641.mlab.com:19641/camera')
+
+//authentification
+app.use(koaJwt)
 
 module.exports = app

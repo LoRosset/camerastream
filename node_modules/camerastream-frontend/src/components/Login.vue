@@ -28,7 +28,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form @submit.prevent="post">
-                  <v-text-field name="login" label="Login" type="text required" v-model="login"></v-text-field>
+                  <v-text-field name="username" label="Username" type="text required" v-model="username"></v-text-field>
                   <v-text-field id="password" name="password" label="Password" type="password" v-model="password" required></v-text-field>
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -51,11 +51,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Login',
   data () {
     return {
-      login: '',
+      username: '',
       password: '',
       error: false,
       title: 'Camera-Stream',
@@ -67,7 +68,7 @@ export default {
   },
   methods: {
     post: function () {
-      this.$http.post('/auth', { user: this.email, password: this.password })
+      this.$http.post('/login', { username: this.username, password: this.password })
         .then(request => this.loginSuccessful(request))
         .catch(() => this.loginFailed())
     },
@@ -76,14 +77,24 @@ export default {
         this.loginFailed()
         return
       }
-      localStorage.token = req.data.token
       this.error = false
+      localStorage.token = req.data.token
+      this.$store.dispatch('login')
       this.$router.replace(this.$route.query.redirect || '/app')
     },
     loginFailed: function () {
       this.error = 'Login failed!'
+      this.$store.dispatch('logout')
       delete localStorage.token
+    },
+    checkCurrentLogin () {
+      if (this.currentUser) {
+        this.$router.replace(this.$route.query.redirect || '/app')
+      }
     }
+  },
+  computed: {
+    ...mapGetters({ currentUser: 'currentUser' })
   }
 }
 </script>
