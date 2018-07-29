@@ -20,6 +20,13 @@
 
   <!-- Content -->
 
+  <div class="title">
+    <div onclick="pullUserInfo()">
+      <h1 class="display-3">Welcome {{username}}</h1>
+      <p class="subtitle">Email : {{email}}</p>
+    </div>
+  </div>
+
   <!-- Footer -->
   <v-footer color="green" app>
     <span class="white--text">&copy; Loïc Rosset, 2018</span>
@@ -34,6 +41,8 @@ export default {
   name: 'MyApp',
   data () {
     return {
+      username: '',
+      email: '',
       title: 'Camera-Stream',
       menus: [
         {name: 'Logout', route: 'Login'}
@@ -51,10 +60,35 @@ export default {
   },
   methods: {
     checkCurrentLogin () {
-      if (!this.currentUser && this.$route.path !== '/') {
+      if (!this.currentUser && this.$route.path !== '/app') {
         this.$router.push('/?redirect=' + this.$route.path)
+      }
+    },
+    pullUserInfo: function () {
+      if (this.currentUser) {
+        this.$http.get('/user/' + this.currentUser.id, function (data, status) {
+          this.username = data.name
+          console.log('%s', this.username)
+          this.email = data.email
+        })
+          .then(request => console.log('sucessfull get user'))
+          .catch(() => console.log('pull user info failed'))
       }
     }
   }
 }
 </script>
+
+<style>
+  .title {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .title .subtitle {
+    font-weight: 200;
+    font-size: 1.5rem;
+  }
+</style>
