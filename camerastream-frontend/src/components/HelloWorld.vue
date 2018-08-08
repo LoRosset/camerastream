@@ -1,48 +1,32 @@
 <template>
   <v-app id="Hello">
-  <!-- Toolbar -->
-    <v-toolbar color="green" dark fluid fixed fill-height app>
-      <v-toolbar-title>
-        <v-btn flat :to="{name: 'HelloWorld'}">{{title}}</v-btn>
-      </v-toolbar-title>
+  <template>
+    <Navbar></Navbar>
+  </template>
 
-      <v-spacer></v-spacer>
-
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat v-for="menu in menus" :key='menu.index' :to={name:menu.route}>
-          {{menu.name}}
-        </v-btn>
-
-      </v-toolbar-items>
-    </v-toolbar>
-
-    <router-view></router-view>
-
-  <!-- Content -->
   <div class="title">
     <div>
       <h1 class="display-3">Welcome on Camera-Stream</h1>
       <p class="subtitle">Security camera streaming</p>
     </div>
   </div>
-  <!-- Footer -->
-  <v-footer color="green" app>
-    <span class="white--text">&copy; Loïc Rosset, 2018</span>
-  </v-footer>
+  <router-view></router-view>
+
+  <template>
+    <Foot></Foot>
+  </template>
 
 </v-app>
 </template>
 
 <script>
+import Navbar from '@/components/Navbar'
+import Foot from '@/components/Foot'
 export default {
   name: 'HelloWorld',
-  data () {
-    return {
-      title: 'Camera-Stream',
-      menus: [
-        {name: 'Login', route: 'Login'}
-      ]
-    }
+  components: {
+    Navbar,
+    Foot
   }
 }
 </script>

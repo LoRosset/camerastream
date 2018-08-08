@@ -44,6 +44,7 @@ const jwt = require('jsonwebtoken');
 		const passwordGiven = ctx.request.body.password
 		var password = ''
 		var id = ''
+		console.log(passwordGiven);
 		await User.findOne({ 'username': usernameGiven },'name password', function (err, user){
 			if (err) return handleError(err);
 			password = user.password

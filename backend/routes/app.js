@@ -12,7 +12,7 @@ const jwt = require('../middlewares/jwt')
 
 			//-----USER ROUTES-----//
 //GET a user
-router.get('/user/:user_id', user_controller.findAll) 
+router.get('/user/:user_id', user_controller.find) 
 
 //GET list of all users
 router.get('/user', jwt, user_controller.findAll)
