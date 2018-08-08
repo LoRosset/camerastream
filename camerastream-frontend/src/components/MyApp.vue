@@ -4,11 +4,22 @@
     <Navbar></Navbar>
   </template>
 
-  <div class="title">
-    <div>
-      <h1 class="display-3">Welcome {{name}}</h1>
+  <div class="container">
+    <section>
+      <h1 class="title">Welcome {{name}}</h1>
       <p class="subtitle">Email : {{email}}</p>
+    </section>
+    <div class="container">
+      <h2 class="title">Your home</h2>
+
+      <section>
+        <p class="subtitle">Your box :</p>
+      </section>
+      <section>
+        <p class="subtitle">Your camera(s) :</p>
+      </section>
     </div>
+
   </div>
   <router-view></router-view>
 
@@ -31,6 +42,7 @@ export default {
   },
   data () {
     return {
+      username: '',
       name: '',
       email: ''
     }
@@ -55,6 +67,7 @@ export default {
       if (this.currentUser) {
         this.$http.get('/user/' + this.currentUser.id)
           .then(request => {
+            this.username = request.data.username
             this.name = request.data.name
             this.email = request.data.email
           })
@@ -64,17 +77,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .title {
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  .title .subtitle {
-    font-weight: 200;
-    font-size: 1.5rem;
-  }
-</style>

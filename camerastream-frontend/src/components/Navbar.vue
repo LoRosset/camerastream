@@ -1,7 +1,8 @@
 <template>
   <v-toolbar color="green" dark fluid fixed fill-height app>
     <v-toolbar-title>
-      <v-btn flat :to="{name: 'HelloWorld'}">{{title}}</v-btn>
+      <v-btn v-if="currentUser" flat :to="{name: 'MyApp'}">{{title}}</v-btn>
+      <v-btn v-else flat :to="{name: 'HelloWorld'}">{{title}}</v-btn>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
