@@ -1,5 +1,5 @@
 /* global localStorage */
-import User from '../models/User'
+import User from '../models/user.js'
 import * as MutationTypes from '@/store/mutation_type'
 
 const state = {
