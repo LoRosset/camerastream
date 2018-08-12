@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="green" dark fluid fixed fill-height app>
+  <v-toolbar color="green" app dark>
     <v-toolbar-title>
       <v-btn v-if="currentUser" flat :to="{name: 'MyApp'}">{{title}}</v-btn>
       <v-btn v-else flat :to="{name: 'HelloWorld'}">{{title}}</v-btn>
@@ -7,11 +7,11 @@
 
     <v-spacer></v-spacer>
 
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn v-if="currentUser" flat v-for="menu in menusUser" :key='menu.index' :to={name:menu.route}>
+    <v-toolbar-items>
+      <v-btn v-if="currentUser" v-for="menu in menusUser" :key='menu.index' :to={name:menu.route}>
           {{menu.name}}
       </v-btn>
-      <v-btn v-else flat v-for="menu in menus" :key='menu.index' :to={name:menu.route}>
+      <v-btn v-else v-for="menu in menus" :key='menu.index' :to={name:menu.route}>
           {{menu.name}}
       </v-btn>
 
