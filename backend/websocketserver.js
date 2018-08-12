@@ -7,7 +7,7 @@ const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws, req) {
   const ip = req.connection.remoteAddress.replace(/^.*:/, '');
-  console.log(ip);
+  console.log('ip address: %s',ip);
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
     ws.send('hello, your ip address is : '+ ip);
