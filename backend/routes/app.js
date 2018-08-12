@@ -49,7 +49,7 @@ router.delete('/user/:user_id/home/:home_id', jwt, home_controller.destroy)
 //router.get('/user/:user_id/home/:home_id/', jwt, box_controller.find)
 router.get('/box', box_controller.find)
 //CREATE a box for a specific home
-router.post('/user/:user_id/box/create', jwt, box_controller.create)
+router.post('/user/:user_id/box/create', box_controller.create)
 
 //UPDATE a specific box
 router.post('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.update)
