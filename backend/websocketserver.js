@@ -6,7 +6,7 @@ const server = http.createServer(function(request, response) {});
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws, req) {
-  const ip = req.connection.remoteAddress;
+  const ip = req.connection.remoteAddress.replace(/^.*:/, '');
   console.log(ip);
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
