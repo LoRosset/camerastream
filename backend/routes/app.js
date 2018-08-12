@@ -21,7 +21,7 @@ router.get('/user', jwt, user_controller.findAll)
 router.post('/user/create', user_controller.create)
 
 //UPDATE a user
-router.post('/user/:user_id/update', jwt, user_controller.update)
+router.post('/user/:user_id/update', user_controller.update)
 
 //DELETE a user
 router.delete('/user/:user_id', jwt, user_controller.destroy)
@@ -47,9 +47,9 @@ router.delete('/user/:user_id/home/:home_id', jwt, home_controller.destroy)
 			//-----BOX ROUTES-----//
 //GET boxes for a specific home
 //router.get('/user/:user_id/home/:home_id/', jwt, box_controller.find)
-router.get('/box', jwt, box_controller.find)
+router.get('/box', box_controller.find)
 //CREATE a box for a specific home
-router.post('/user/:user_id/home/:home_id/box/create', jwt, box_controller.create)
+router.post('/user/:user_id/box/create', jwt, box_controller.create)
 
 //UPDATE a specific box
 router.post('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.update)

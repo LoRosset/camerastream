@@ -22,12 +22,17 @@
 <script>
 import Navbar from '@/components/Navbar'
 import Foot from '@/components/Foot'
+
 export default {
   name: 'HelloWorld',
   components: {
     Navbar,
     Foot
+  },
+  created () {
+    this.$socket.send('hello')
   }
+
 }
 </script>
 

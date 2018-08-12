@@ -3,10 +3,11 @@
  // Declare Schema
  const BoxSchema = new mongoose.Schema(
  	{
-	 	ipaddress: { type: String},
-	 	type: { type: String},
-	 	status: { type: Boolean},
-	 	camera: { type: mongoose.Schema.ObjectId, ref: 'Camera'}
+ 		user: { type: mongoose.Schema.ObjectId, ref: 'User'},
+	 	ip: { type: String},
+	 	mac: { type: String},
+	 	//status: { type: Boolean},
+	 	cameras: { type: mongoose.Schema.ObjectId, ref: 'Camera'}
  	}, 
  	{ timestamps: true }
  );

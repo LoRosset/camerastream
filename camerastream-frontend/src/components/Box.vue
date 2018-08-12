@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     pullUserInfo: function () {
-      this.$socket.send('hello')
       if (this.currentUser) {
         this.$http.get('/user/' + this.currentUser.id)
           .then(request => {

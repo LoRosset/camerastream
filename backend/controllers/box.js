@@ -1,5 +1,5 @@
 const Box = require('../models/box');
-
+const User = require('../models/user')
 	async function find (ctx) {
 		const boxs = await Box.find({})
 		ctx.body = boxs
@@ -7,6 +7,12 @@ const Box = require('../models/box');
 
 	async function create (ctx) {
 		const newBox = new Box(ctx.request.body)
+		const userId = ctx.params.user_id
+		newBox.user = userId
+		const user = await User.findById(userId)
+		user.box = newBox._id
+
+		const savedUser = await user.save()
 		const savedBox = await newBox.save()
 		ctx.body = savedBox
 	}
