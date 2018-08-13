@@ -28,11 +28,7 @@ export default {
   components: {
     Navbar,
     Foot
-  },
-  created () {
-    this.$socket.send('hello')
   }
-
 }
 </script>
 

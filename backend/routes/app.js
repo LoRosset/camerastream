@@ -62,7 +62,7 @@ router.delete('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.de
 router.get('/user/:user_id/home/:home_id/box/:box_id/', jwt, camera_controller.find)
 
 //CREATE a camera for a specific box
-router.post('/user/:user_id/home/:home_id/box/:box_id/camera/create', jwt, camera_controller.create)
+router.post('/box/:box_id/camera/create', camera_controller.create)
 
 //UPDATE a specific camera
 router.post('/user/:user_id/home/:home_id/box/:box_id/camera/:camera_id', jwt, camera_controller.update)
