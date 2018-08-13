@@ -42,8 +42,8 @@ wss.on('connection', function connection(ws, req) {
     else if(message.includes("getCameras")){
       var request = JSON.parse(message);
       var id = request.boxID;
-      connections[id].send("camera");
       console.log("Request for cameras for box id: %s", id);
+      connections[id].send("camera");
     }
     else if(message.includes("camera")){
       console.log(message);

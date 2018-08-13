@@ -5,6 +5,12 @@ const User = require('../models/user')
 		ctx.body = boxs
 	}
 
+	async function findId (ctx) {
+		const boxId = ctx.params.box_id
+		const box = await Box.findById(boxId)
+		ctx.body = box
+	}
+
 	async function create (ctx) {
 		const newBox = new Box(ctx.request.body)
 		const userId = ctx.params.user_id
@@ -39,6 +45,7 @@ const User = require('../models/user')
 
 module.exports = {
 	find,
+	findId,
 	create,
 	update,
 	destroy
