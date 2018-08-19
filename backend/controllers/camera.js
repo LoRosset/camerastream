@@ -11,7 +11,10 @@ const Box = require('../models/box');
 		const boxId = ctx.params.box_id
 		newCamera.box = boxId
 		const box = await Box.findById(boxId)
-		box.cameras = newCamera._id
+		box.populate('cameras').exec(function (err, newCamera) {
+			if (err) console.log(err);
+			
+		})
 
 		const savedBox = await box.save()
 		const savedCamera = await newCamera.save()

@@ -12,16 +12,16 @@ const jwt = require('../middlewares/jwt')
 
 			//-----USER ROUTES-----//
 //GET a user
-router.get('/user/:user_id', user_controller.find) 
+router.get('/user/:user_id', jwt, user_controller.find) 
 
 //GET list of all users
 router.get('/user', jwt, user_controller.findAll)
 
 //CREATE a user
-router.post('/user/create', user_controller.create)
+router.post('/user/create', jwt, user_controller.create)
 
 //UPDATE a user
-router.post('/user/:user_id/update', user_controller.update)
+router.post('/user/:user_id/update', jwt, user_controller.update)
 
 //DELETE a user
 router.delete('/user/:user_id', jwt, user_controller.destroy)
@@ -47,10 +47,11 @@ router.delete('/user/:user_id/home/:home_id', jwt, home_controller.destroy)
 			//-----BOX ROUTES-----//
 //GET boxes for a specific home
 //router.get('/user/:user_id/home/:home_id/', jwt, box_controller.find)
-router.get('/box', box_controller.find)
-router.get('/box/:box_id', box_controller.findId)
+router.get('/box', jwt, box_controller.find)
+
+router.get('/box/:box_id', jwt, box_controller.findId)
 //CREATE a box for a specific home
-router.post('/user/:user_id/box/create', box_controller.create)
+router.post('/user/:user_id/box/create', jwt, box_controller.create)
 
 //UPDATE a specific box
 router.post('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.update)
@@ -60,13 +61,13 @@ router.delete('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.de
 			
 			//-----CAMERA ROUTES-----//
 //GET cameras for a specific box
-router.get('/user/:user_id/home/:home_id/box/:box_id/', jwt, camera_controller.find)
+router.get('/box/:box_id/', jwt, camera_controller.find)
 
 //CREATE a camera for a specific box
-router.post('/box/:box_id/camera/create', camera_controller.create)
+router.post('/box/:box_id/camera/create', jwt, camera_controller.create)
 
-//UPDATE a specific camera
-router.post('/user/:user_id/home/:home_id/box/:box_id/camera/:camera_id', jwt, camera_controller.update)
+//UPDATE cameras
+router.post('/box/:box_id/camera/:camera_id', jwt, camera_controller.update)
 
 //DELETE a specific camera
 router.delete('/user/:user_id/home/:home_id/box/:box_id/camera/:camera_id', jwt, camera_controller.destroy)

@@ -11,7 +11,7 @@ import('../node_modules/vuetify/dist/vuetify.min.css')
 import('../node_modules/material-icons/iconfont/material-icons.css')
 
 Vue.use(Vuetify)
-Vue.use(VueNativeSock, 'ws://www.camera-stream.tk:8001', {store: store})
+Vue.use(VueNativeSock, 'ws://localhost:8001', {store: store})
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

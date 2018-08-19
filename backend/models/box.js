@@ -7,7 +7,7 @@
 	 	ip: { type: String},
 	 	mac: { type: String},
 	 	//status: { type: Boolean},
-	 	cameras: { type: mongoose.Schema.ObjectId, ref: 'Camera'}
+	 	cameras: [{ type: mongoose.Schema.ObjectId, ref: 'Camera'}]
  	}, 
  	{ timestamps: true }
  );

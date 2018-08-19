@@ -18,7 +18,7 @@
 
         <v-card-actions>
           <v-flex class="text-xs-center">
-            <v-btn flat color="orange" v-on:click.native="console.log('salut')">Camera {{cameraIP}}</v-btn>
+            <v-btn flat color="orange" v-on:click.native="console.log('salut')">Camera {{cameras}}</v-btn>
             <v-btn flat color="orange" v-on:click.native="askForKill(this.box)">Kill</v-btn>
           </v-flex>
         </v-card-actions>
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       box: null,
-      cameraIP: ''
+      cameras: ''
     }
   },
   computed: {
@@ -67,15 +67,16 @@ export default {
       this.$http.get('/box/' + this.box)
         .then(request => {
           if (request.data) {
+            this.askForCamera()
             console.log(request.data)
-            // this.cameraIP = request.data.cameras[0].ip
+            this.cameras = request.data.cameras
           }
         })
         .catch(() => console.log('pull box info failed'))
     },
 
     askForCamera: function (box) {
-      var request = {msg: 'getCameras', boxId: box}
+      var request = {msg: 'getCameras', boxId: this.box}
       this.$socket.send(JSON.stringify(request))
     },
 

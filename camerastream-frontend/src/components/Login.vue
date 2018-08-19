@@ -20,7 +20,7 @@
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
           <h1>{{msg}}</h1>
-          <div><v-alert v-model="error" type="error">{{error}}</v-alert></div>
+          <div><v-alert v-model="error" type="error">Login failed !</v-alert></div>
             <v-card class="elevation-12">
               <v-toolbar dark color="green">
                 <v-toolbar-title>Login</v-toolbar-title>
@@ -83,7 +83,7 @@ export default {
       this.$router.replace(this.$route.query.redirect || '/app')
     },
     loginFailed: function () {
-      this.error = 'Login failed!'
+      this.error = true
       this.$store.dispatch('logout')
       delete localStorage.token
     },
