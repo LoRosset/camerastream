@@ -53,26 +53,18 @@ wss.on('connection', function connection(ws, req) {
         }
       });
     }
-    else if(message.includes("camera")){
+    else if(message.includes("ip")){
       console.log('Register cameras now...');
       var cameras = JSON.parse(message);
-      axios.get(API_URL + '/box/' + ws._id, { headers: { Authorization: AUTH } }).then(response => {
-        if(!response.data.cameras){
-          axios.post(API_URL + '/box/' + ws._id + '/camera/create', { headers: { Authorization: AUTH }, body: cameras }).then(response => {
-            console.log('Successfully create : %s', response.data);
-          }).catch((error) => {
-            console.log('error %s', error);
-          })
-        }
-        else{
-          console.log('cameras already exist'); // TODO
-          
-        }
+      axios.post(API_URL + '/box/' + ws._id, cameras, { headers: { Authorization: AUTH }}).then(response => {
+        console.log('Successfully create : %s', response.data);
+      }).catch((error) => {
+        console.log('error %s', error);
       });
     }
     else if(message.includes("connexion")){
       var request = JSON.parse(message);
-      var id = request.boxID;
+      var id = request.boxId;
       var obj = { msg: 'connexion', camera: request.cameraId}
       console.log("Request for connexion on camera for box id: %s", id);
       wss.clients.forEach(function each(client) {
@@ -83,9 +75,10 @@ wss.on('connection', function connection(ws, req) {
     }
     else if(message.includes("kill")){
       var request = JSON.parse(message);
-      var id = request.boxID;
-      var obj = { msg: 'kill'}
-      console.log("Request for killing connexion on camera for box id: %s", id);
+      var id = request.boxId;
+      var camera = request.cameraId;
+      var obj = { msg: 'kill', camera: camera}
+      console.log("Request for killing connexion on %s for box id: %s", camera, id);
       wss.clients.forEach(function each(client) {
         if(client._id === id){
           client.send(JSON.stringify(obj));

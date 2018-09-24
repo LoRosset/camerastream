@@ -1,5 +1,8 @@
-const Box = require('../models/box');
+const Box = require('../models/box')
 const User = require('../models/user')
+const Camera = require('../models/camera')
+const camera_controller = require('./camera')
+
 	async function find (ctx) {
 		const boxs = await Box.find({})
 		ctx.body = boxs
@@ -23,10 +26,30 @@ const User = require('../models/user')
 		ctx.body = savedBox
 	}
 
-	async function update (ctx) {
+	async function updateCameras (ctx) {
 		//Find Box based on id
 		const id = ctx.params.box_id
 		const box = await Box.findById(id)
+
+		var obj = ctx.request.body
+		if(box.cameras.length != 0){
+			//delete all current cameras from the box
+			for (var i = box.cameras.length - 1; i >= 0; i--) {
+				const camera = await Camera.findById(box.cameras[i])
+				const deletedCamera = await camera.remove()
+			}
+			box.cameras = []
+		}
+		
+		//create new cameras
+		if(obj.cameras.length != 0){
+			for (var i = obj.cameras.length - 1; i >= 0; i--) {
+				const newCamera = new Camera(obj.cameras[i])
+				newCamera.box = box._id
+				box.cameras.push(newCamera)
+				const savedCamera = await newCamera.save()
+			}
+		}
 
 		//Update box in database
 		const updatedBox = await box.save()
@@ -47,6 +70,6 @@ module.exports = {
 	find,
 	findId,
 	create,
-	update,
+	updateCameras,
 	destroy
 }

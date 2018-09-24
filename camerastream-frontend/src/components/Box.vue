@@ -18,8 +18,8 @@
 
         <v-card-actions>
           <v-flex class="text-xs-center">
-            <v-btn flat color="orange" v-on:click.native="console.log('salut')">Camera {{cameras}}</v-btn>
-            <v-btn flat color="orange" v-on:click.native="askForKill(this.box)">Kill</v-btn>
+            <v-btn flat color="orange" v-for="camera in cameras" :key='camera.index' v-on:click="askForConnexion(camera.name)">{{camera.name}}</v-btn>
+            <v-btn flat color="red" v-for="camera in cameras" :key='camera.index' v-on:click="askForKill(camera.name)">Kill {{camera.name}}</v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       box: null,
-      cameras: {}
+      cameras: []
     }
   },
   computed: {
@@ -48,8 +48,9 @@ export default {
   },
   methods: {
     write: function (text) {
-      console.log(text)
+      alert(text)
     },
+
     pullUserInfo: function () {
       if (this.currentUser) {
         this.$http.get('/user/' + this.currentUser.id)
@@ -69,19 +70,28 @@ export default {
           if (request.data) {
             this.askForCamera()
             console.log(request.data)
-            this.cameras = request.data.cameras
+            for (var i = request.data.cameras.length - 1; i >= 0; i--) {
+              this.$http.get('/camera/' + request.data.cameras[i]).then(request => {
+                this.cameras.push(request.data)
+              })
+            }
           }
         })
         .catch(() => console.log('pull box info failed'))
     },
 
-    askForCamera: function (box) {
+    askForCamera: function () {
       var request = {msg: 'getCameras', boxId: this.box}
       this.$socket.send(JSON.stringify(request))
     },
 
-    askForConnexion: function (box, camera) {
-      var request = {msg: 'connexion', boxId: box, cameraId: camera}
+    askForConnexion: function (camera) {
+      var request = {msg: 'connexion', boxId: this.box, cameraId: camera}
+      this.$socket.send(JSON.stringify(request))
+    },
+
+    askForKill: function (camera) {
+      var request = {msg: 'kill', boxId: this.box, cameraId: camera}
       this.$socket.send(JSON.stringify(request))
     }
   }

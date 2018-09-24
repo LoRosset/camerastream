@@ -54,14 +54,14 @@ router.get('/box/:box_id', jwt, box_controller.findId)
 router.post('/user/:user_id/box/create', jwt, box_controller.create)
 
 //UPDATE a specific box
-router.post('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.update)
+router.post('/box/:box_id', jwt, box_controller.updateCameras)
 
 //DELETE a specific box
 router.delete('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.destroy)
 			
 			//-----CAMERA ROUTES-----//
-//GET cameras for a specific box
-router.get('/box/:box_id/', jwt, camera_controller.find)
+//GET a specific camera
+router.get('/camera/:camera_id/', jwt, camera_controller.find)
 
 //CREATE a camera for a specific box
 router.post('/box/:box_id/camera/create', jwt, camera_controller.create)

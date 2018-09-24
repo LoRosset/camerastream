@@ -2,8 +2,9 @@ const Camera = require('../models/camera');
 const Box = require('../models/box');
 
 	async function find (ctx) {
-		const cameras = await Camera.find({})
-		ctx.body = cameras
+		const id = ctx.params.camera_id
+		const camera = await Camera.findById(id)
+		ctx.body = camera
 	}
 
 	async function create (ctx) {
