@@ -1,22 +1,23 @@
-//const fs = require('fs');
-const http = require('http');
+const fs = require('fs');
+const https = require('https');
 const WebSocket = require('ws');
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
 
-const server = http.createServer(function(request, response) {});
+const server = https.createServer({
+  cert: fs.readFileSync('/etc/letsencrypt/csr/0000_csr-certbot.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/keys/000_key-certbot.pem')
+});
 const wss = new WebSocket.Server({ server, clientTracking: true });
 
-const API_URL = 'http://localhost:3000/v1/app';
+const API_URL = 'https://camera-stream.tk:3000/v1/app';
 const TOKEN = jwt.sign({ admin: true }, 'A very secret key');
 const AUTH = 'Bearer '.concat(TOKEN);
 
 wss.on('connection', function connection(ws, req) {
   
-
   const ip = req.connection.remoteAddress.replace(/^.*:/, '');
   console.log('ip address: %s',ip);
-
 
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
