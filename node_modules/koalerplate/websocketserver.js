@@ -5,8 +5,9 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 
 const server = https.createServer({
-  cert: fs.readFileSync('/etc/letsencrypt/csr/0000_csr-certbot.pem'),
-  key: fs.readFileSync('/etc/letsencrypt/keys/000_key-certbot.pem')
+  cert: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/cert1.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/privkey1.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/chain1.pem')
 });
 const wss = new WebSocket.Server({ server, clientTracking: true });
 
