@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken');
 const server = https.createServer({
   cert: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/cert1.pem'),
   key: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/privkey1.pem'),
-  ca: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/chain1.pem')
+  ca: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/fullchain1.pem'),
+  rejectUnauthorized: false
 });
 const wss = new WebSocket.Server({ server, clientTracking: true });
 
