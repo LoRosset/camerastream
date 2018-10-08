@@ -2,10 +2,10 @@ const Router = require('koa-router')
 const router = new Router()
 
 //Controller modules
-const home_controller = require('../controllers/home')
 const user_controller = require('../controllers/user')
 const camera_controller = require('../controllers/camera')
 const box_controller = require('../controllers/box')
+const flux_controller = require('../controllers/flux')
 const jwt = require('../middlewares/jwt')
 
 //Routes path
@@ -28,20 +28,6 @@ router.delete('/user/:user_id', jwt, user_controller.destroy)
 
 //POST login information for authentification
 router.post('/login', user_controller.control)
-
-
-			//-----HOME ROUTES-----//
-//GET account page with homes of user
-router.get('/user/:user_id', jwt, home_controller.find)
-
-//CREATE a home for a specific user
-router.post('/user/:user_id/home/create', jwt, home_controller.create)
-
-//UPDATE a specific home
-router.post('/user/:user_id/home/:home_id/update', jwt, home_controller.update)
-
-//DELETE a specific home
-router.delete('/user/:user_id/home/:home_id', jwt, home_controller.destroy)
 
 
 			//-----BOX ROUTES-----//
@@ -71,5 +57,8 @@ router.post('/box/:box_id/camera/:camera_id', jwt, camera_controller.update)
 
 //DELETE a specific camera
 router.delete('/user/:user_id/home/:home_id/box/:box_id/camera/:camera_id', jwt, camera_controller.destroy)
+
+			//-----CONNEXION ROUTE-----//
+router.get('/flux', jwt, flux_controller.findPort)
 
 module.exports = router.routes()

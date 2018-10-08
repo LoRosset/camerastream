@@ -86,8 +86,17 @@ export default {
     },
 
     askForConnexion: function (camera) {
-      var request = {msg: 'connexion', boxId: this.box, cameraId: camera}
-      this.$socket.send(JSON.stringify(request))
+      this.$http.get('/flux').then(response => {
+        var port = response.data.port;
+        console.log('Available port: %s', port);
+        var request = {msg: 'connexion', boxId: this.box, cameraId: camera, port: port};
+        this.$socket.send(JSON.stringify(request));
+        this.$http.post('/flux', { port: port }).then(response => {
+          //get port of proxy and redirect to it
+        });
+      }).catch((error) => {
+        console.log('error %s', error);
+      });
     },
 
     askForKill: function (camera) {

@@ -68,8 +68,9 @@ wss.on('connection', function connection(ws, req) {
     else if(message.includes("connexion")){
       var request = JSON.parse(message);
       var id = request.boxId;
-      var obj = { msg: 'connexion', camera: request.cameraId}
-      console.log("Request for connexion on camera for box id: %s", id);
+      var port = request.port;
+      var obj = { msg: 'connexion', camera: request.cameraId, port: port}
+      console.log("Request for connexion on camera for box:%s, on port:%s", id, port);
       wss.clients.forEach(function each(client) {
         if(client._id === id){
           client.send(JSON.stringify(obj));
