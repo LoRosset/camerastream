@@ -27,6 +27,8 @@
     "async-each": "^1.0.1",
     "cross-env": "^5.1.4",
     "dotenv": "^5.0.1",
+    "get-port": "^4.0.0",
+    "http-proxy": "^1.17.0",
     "jsonwebtoken": "^8.3.0",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",

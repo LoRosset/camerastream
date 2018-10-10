@@ -92,7 +92,8 @@ export default {
         var request = {msg: 'connexion', boxId: this.box, cameraId: camera, port: port};
         this.$socket.send(JSON.stringify(request));
         this.$http.post('/flux', { port: port }).then(response => {
-          //get port of proxy and redirect to it
+          console.log('Port of proxy: %s', response.data.port);
+          this.$router.push('https://camera-stream.tk:' + response.data.port);
         });
       }).catch((error) => {
         console.log('error %s', error);
