@@ -34,8 +34,7 @@ export default {
   data () {
     return {
       box: null,
-      cameras: [],
-      proxyPorts: {}
+      cameras: []
     }
   },
   computed: {
@@ -93,7 +92,8 @@ export default {
         var request = {msg: 'connexion', boxId: this.box, cameraId: camera, port: port}
         this.$socket.send(JSON.stringify(request))
         this.$http.post('/flux', { port: port }).then(response => {
-          proxyPorts[camera] = response.data.port
+          var info = {msg: 'proxyPort', boxId: this.box, cameraId: camera, port: response.data.port}
+          this.$socket.send(JSON.stringify(info))
           console.log('Port of proxy: %s', response.data.port)
           this.$router.replace('https://camera-stream.tk:' + response.data.port)
         })
@@ -103,7 +103,8 @@ export default {
     },
 
     askForKill: function (camera) {
-      var request = {msg: 'kill', boxId: this.box, cameraId: camera, proxyPort: proxyPorts.camera}
+      console.log(this.proxyPorts.camera)
+      var request = {msg: 'kill', boxId: this.box, cameraId: camera}
       this.$socket.send(JSON.stringify(request))
     }
   }

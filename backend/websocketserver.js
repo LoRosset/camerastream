@@ -78,6 +78,18 @@ wss.on('connection', function connection(ws, req) {
         }
       });
     }
+    else if(message.includes("proxyPort")){
+      var request = JSON.parse(message);
+      var id = request.boxId;
+      var camera = request.cameraId;
+      var port = request.port;
+      console.log("Register proxyPort for box:%s", id);
+      wss.clients.forEach(function each(client) {
+        if(client._id === id){
+          client.proxyPort.camera = port;
+        }
+      });
+    }
     else if(message.includes("kill")){
       var request = JSON.parse(message);
       var id = request.boxId;
@@ -87,9 +99,10 @@ wss.on('connection', function connection(ws, req) {
       wss.clients.forEach(function each(client) {
         if(client._id === id){
           client.send(JSON.stringify(obj));
+          console.log("Request for killing proxy connexion on port: %s", request.proxyPort);
+          kill(client.proxyPort.camera).then(console.log).catch(console.log);
         }
       });
-      kill(request.proxyPort).then(console.log).catch(console.log);
     }
     else{
       var obj = { msg: 'your message is '+ message}
