@@ -37,6 +37,7 @@ wss.on('connection', function connection(ws, req) {
             console.log('Connection accepted.');
             trueBox = true;
             ws._id = box._id;
+            ws.proxyPort = {};
             return;
           }
         });
@@ -86,7 +87,7 @@ wss.on('connection', function connection(ws, req) {
       console.log("Register proxyPort for box:%s", id);
       wss.clients.forEach(function each(client) {
         if(client._id === id){
-          client.proxyPort.camera = port;
+          client.proxyPort[camera] = port;
         }
       });
     }
@@ -99,8 +100,8 @@ wss.on('connection', function connection(ws, req) {
       wss.clients.forEach(function each(client) {
         if(client._id === id){
           client.send(JSON.stringify(obj));
-          console.log("Request for killing proxy connexion on port: %s", request.proxyPort);
-          kill(client.proxyPort.camera).then(console.log).catch(console.log);
+          console.log("Request for killing proxy connexion on port: %s", client.proxyPort[camera]);
+          kill(client.proxyPort[camera]).then(console.log).catch(console.log);
         }
       });
     }

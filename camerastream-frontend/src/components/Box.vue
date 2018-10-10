@@ -103,7 +103,6 @@ export default {
     },
 
     askForKill: function (camera) {
-      console.log(this.proxyPorts.camera)
       var request = {msg: 'kill', boxId: this.box, cameraId: camera}
       this.$socket.send(JSON.stringify(request))
     }
