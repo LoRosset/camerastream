@@ -5,7 +5,7 @@ const fs = require('fs');
 
 async function findPort (ctx) {
     var port = await getPort();
-    ctx.body = {port: port};
+    ctx.body = {port: port.toString()};
 }
 
 async function createProxy (ctx) {
@@ -22,6 +22,7 @@ async function createProxy (ctx) {
 			ca: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/fullchain1.pem')
     	}
     }).listen(port);
+    console.log('Created Proxy on port:%s', port);
     ctx.body = {port: port};
 }
 

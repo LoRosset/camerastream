@@ -3,6 +3,7 @@ const https = require('https');
 const WebSocket = require('ws');
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
+const kill = require('kill-port');
 
 const server = https.createServer({
   cert: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/cert1.pem'),
@@ -88,6 +89,7 @@ wss.on('connection', function connection(ws, req) {
           client.send(JSON.stringify(obj));
         }
       });
+      kill(request.proxyPort).then(console.log).catch(console.log);
     }
     else{
       var obj = { msg: 'your message is '+ message}

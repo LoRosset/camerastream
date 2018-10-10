@@ -3,7 +3,7 @@ const https = require('https')
 
 const API_URL = process.env.API_URL || 'https://camera-stream.tk:3000/v1/app'
 var agent = new https.Agent({
-	rejectUnauthorized: false
+  rejectUnauthorized: false
 })
 
 export default axios.create({
