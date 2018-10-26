@@ -96,7 +96,7 @@ export default {
           //this.$socket.send(JSON.stringify(info))
           //console.log('Port of proxy: %s', response.data.port)
           //window.location = 'https://camera-stream.tk:' + response.data.port
-          this.$router.push('/'+ this.box + '/' + camera)
+          this.$http.get('/flux')
         })
       }).catch((error) => {
         console.log('error %s', error)
