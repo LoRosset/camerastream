@@ -32,6 +32,7 @@
     "async": "^2.6.1",
     "async-each": "^1.0.1",
     "camerastream-frontend": "file:camerastream-frontend",
+    "koa-better-http-proxy": "^0.2.4",
     "koalerplate": "file:backend"
   }
 }

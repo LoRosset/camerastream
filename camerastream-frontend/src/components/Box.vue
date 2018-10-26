@@ -91,11 +91,12 @@ export default {
         console.log('Available port: %s', port)
         var request = {msg: 'connexion', boxId: this.box, cameraId: camera, port: port}
         this.$socket.send(JSON.stringify(request))
-        this.$http.post('/flux', { port: port }).then(response => {
-          var info = {msg: 'proxyPort', boxId: this.box, cameraId: camera, port: response.data.port}
-          this.$socket.send(JSON.stringify(info))
-          console.log('Port of proxy: %s', response.data.port)
-          this.$router.replace('https://camera-stream.tk:' + response.data.port)
+        this.$http.post('/flux', { port: port, box: this.box, cameraId: camera }).then(response => {
+          //var info = {msg: 'proxyPort', boxId: this.box, cameraId: camera, port: response.data.port}
+          //this.$socket.send(JSON.stringify(info))
+          //console.log('Port of proxy: %s', response.data.port)
+          //window.location = 'https://camera-stream.tk:' + response.data.port
+          this.$router.push('/'+ this.box + '/' + camera)
         })
       }).catch((error) => {
         console.log('error %s', error)
