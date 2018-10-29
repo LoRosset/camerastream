@@ -11,13 +11,12 @@ async function findPort (ctx) {
 async function createProxy (ctx) {
 	const box = ctx.params.box_id;
 	const camera = ctx.params.camera_id;
-	const portToProxy = await getPort();
+	const port = await getPort();
+	const portToProxy = port.toString();
 	console.log('Available port : %s', portToProxy);
 	var request = {msg: 'connexion', boxId: box, cameraId: camera, port: portToProxy}
 	//send message to websocket server, to open connection at the box
-	ws.on('open', function open(){
-		ws.send(JSON.stringify(request));
-	});
+	ws.send(JSON.stringify(request));
 	//create proxy
     const url = '/'+ box + '/' + camera;
     const p = proxy('camera-stream.tk', {
