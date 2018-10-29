@@ -86,18 +86,8 @@ export default {
     },
 
     askForConnexion: function (camera) {
-      this.$http.get('/flux').then(response => {
-        var port = response.data.port
-        console.log('Available port: %s', port)
-        var request = {msg: 'connexion', boxId: this.box, cameraId: camera, port: port}
-        this.$socket.send(JSON.stringify(request))
-        this.$http.post('/flux', { port: port, box: this.box, cameraId: camera }).then(response => {
-          //var info = {msg: 'proxyPort', boxId: this.box, cameraId: camera, port: response.data.port}
-          //this.$socket.send(JSON.stringify(info))
-          //console.log('Port of proxy: %s', response.data.port)
-          //window.location = 'https://camera-stream.tk:' + response.data.port
-          this.$http.get('/flux')
-        })
+      this.$http.get('/flux/' + this.box + '/' + camera).then(response => {
+        window.location = 'https://camera-stream.tk:' + 3000 + '/' + this.box + '/' + camera
       }).catch((error) => {
         console.log('error %s', error)
       })

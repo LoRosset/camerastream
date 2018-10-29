@@ -1,7 +1,7 @@
 const getPort = require('get-port');
-const http = require('http');
 const proxy = require('koa-better-http-proxy');
-const fs = require('fs');
+const WebSocket = require('ws');
+const ws = new WebSocket('wss://camera-stream.tk:8001');
 
 async function findPort (ctx) {
     var port = await getPort();
@@ -9,17 +9,24 @@ async function findPort (ctx) {
 }
 
 async function createProxy (ctx) {
-	const portToProxy = ctx.request.body.port;
-	const box = ctx.request.body.box;
-	const camera = ctx.request.body.camera;
+	const box = ctx.params.box_id;
+	const camera = ctx.params.camera_id;
+	const portToProxy = await getPort();
+	console.log('Available port : %s', portToProxy);
+	var request = {msg: 'connexion', boxId: box, cameraId: camera, port: portToProxy}
+	//send message to websocket server, to open connection at the box
+	ws.on('open', function open(){
+		ws.send(JSON.stringify(request));
+	});
+	//create proxy
     const url = '/'+ box + '/' + camera;
-    proxy('camera-stream.tk', {
+    const p = proxy('camera-stream.tk', {
     	port: portToProxy,
     	https: true,
-    	proxyReqPathResolver: (ctx) => { return url;}
+    	proxyReqPathResolver: (ctx) => { return 'url';}
     });
     console.log('Created Proxy');
-    ctx.body = {url: url};
+    await p(ctx);
 }
 
 module.exports = {
