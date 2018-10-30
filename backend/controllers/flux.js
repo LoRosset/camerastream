@@ -3,6 +3,11 @@ const proxy = require('koa-better-http-proxy');
 const WebSocket = require('ws');
 const ws = new WebSocket('wss://camera-stream.tk:8001');
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 async function findPort (ctx) {
     var port = await getPort();
     ctx.body = {port: port.toString()};
@@ -18,11 +23,13 @@ async function createProxy (ctx) {
 	//send message to websocket server, to open connection at the box
 	ws.send(JSON.stringify(request));
 	//create proxy
-    const url = '/'+ box + '/' + camera;
+    //const url = '/'+ box + '/' + camera;
+    		//websocket answer for request of box
+    await sleep(2000);
     const p = proxy('camera-stream.tk', {
     	port: portToProxy,
-    	https: true,
-    	proxyReqPathResolver: (ctx) => { return 'url';}
+    	//https: true,
+    	proxyReqPathResolver: (ctx) => { return '/';}
     });
     console.log('Created Proxy');
     await p(ctx);

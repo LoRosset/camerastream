@@ -86,11 +86,11 @@ export default {
     },
 
     askForConnexion: function (camera) {
-      this.$http.get('/flux/' + this.box + '/' + camera).then(response => {
-        window.location = 'https://camera-stream.tk:' + 3000 + '/' + this.box + '/' + camera
-      }).catch((error) => {
-        console.log('error %s', error)
-      })
+      //this.$http.get('/flux/' + this.box + '/' + camera).then(response => {
+        window.location = 'https://camera-stream.tk:' + 3000 + '/flux/' + this.box + '/' + camera
+     // }).catch((error) => {
+     //   console.log('error %s', error)
+     // })
     },
 
     askForKill: function (camera) {
