@@ -87,7 +87,7 @@ export default {
 
     askForConnexion: function (camera) {
       //this.$http.get('/flux/' + this.box + '/' + camera).then(response => {
-        window.location = 'https://camera-stream.tk:' + 3000 + '/flux/' + this.box + '/' + camera
+        window.location = 'https://camera-stream.tk:' + 3000 + '/v1/app/flux/' + this.box + '/' + camera
      // }).catch((error) => {
      //   console.log('error %s', error)
      // })
