@@ -23,13 +23,11 @@ async function createProxy (ctx) {
 	//send message to websocket server, to open connection at the box
 	ws.send(JSON.stringify(request));
 	//create proxy
-    //const url = '/'+ box + '/' + camera;
     		//websocket answer for request of box
     await sleep(2000);
     const p = proxy('camera-stream.tk', {
     	port: portToProxy,
-    	//https: true,
-    	proxyReqPathResolver: (ctx) => { return '/';}
+    	proxyReqPathResolver: (ctx) => { return '/axis-cgi/mjpg/video.cgi';}
     });
     console.log('Created Proxy');
     await p(ctx);
