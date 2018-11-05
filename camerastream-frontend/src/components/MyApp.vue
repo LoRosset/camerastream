@@ -4,16 +4,17 @@
     <Navbar></Navbar>
   </template>
 
-  <div class="container">
-    <section>
-      <h1 class="title">Welcome {{name}}</h1>
-      <p class="subtitle">Email : {{email}}</p>
-    </section>
-    <div class="container">
-     <Box></Box>
-    </div>
+  <v-container>
+    <v-layout>
+      <v-flex xs12>
+        <h1>Welcome {{name}}</h1>
+      </v-flex>
+    </v-layout>
+    <template>
+    <Box></Box>
+  </template>
+  </v-container>
 
-  </div>
   <router-view></router-view>
 
   <template>

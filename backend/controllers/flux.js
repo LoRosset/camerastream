@@ -25,12 +25,13 @@ async function createProxy (ctx) {
 	//create proxy
     		//websocket answer for request of box
     await sleep(2000);
-    const p = proxy('camera-stream.tk', {
-    	port: portToProxy,
-    	proxyReqPathResolver: (ctx) => { return '/axis-cgi/mjpg/video.cgi';}
-    });
-    console.log('Created Proxy');
-    await p(ctx);
+    // const p = proxy('camera-stream.tk', {
+    // 	port: portToProxy,
+    // 	proxyReqPathResolver: (ctx) => { return '/axis-cgi/mjpg/video.cgi';}
+    // });
+    // console.log('Created Proxy');
+    // await p(ctx);
+    ctx.body = {url: 'http://camera-stream.tk:'+portToProxy+'/axis-cgi/mjpg/video.cgi'}
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
+  <v-layout row wrap>
+    <v-flex xs12>
       <v-card>
         <v-card-media>
           <v-flex class="text-xs-center">
@@ -22,6 +22,11 @@
             <v-btn flat color="red" v-for="camera in cameras" :key='camera.index' v-on:click="askForKill(camera.name)">Kill {{camera.name}}</v-btn>
           </v-flex>
         </v-card-actions>
+
+      <iframe v-if="url" v-bind:src="url" height="400" width="600">
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+
       </v-card>
     </v-flex>
   </v-layout>
@@ -34,7 +39,8 @@ export default {
   data () {
     return {
       box: null,
-      cameras: []
+      cameras: [],
+      url: null
     }
   },
   computed: {
@@ -86,12 +92,16 @@ export default {
     },
 
     askForConnexion: function (camera) {
-      window.location = 'https://camera-stream.tk:' + 3000 + '/v1/app/flux/' + this.box + '/' + camera
+      // window.location = 'https://camera-stream.tk:' + 3000 + '/v1/app/flux/' + this.box + '/' + camera
+      this.$http.get('/flux/'+ this.box + '/' + camera).then(request => {
+        this.url = request.data.url
+      })
     },
 
     askForKill: function (camera) {
       var request = {msg: 'kill', boxId: this.box, cameraId: camera}
       this.$socket.send(JSON.stringify(request))
+      this.url = null
     }
   }
 }
