@@ -11,6 +11,7 @@ async function getCameras (ctx) {
     const box = ctx.params.box_id;
     var request = {msg: 'getCameras', boxId: box};
     ws.send(JSON.stringify(request));
+    ctx.status = 200;
 }
 
 async function destroyConnection (ctx) {
@@ -18,6 +19,7 @@ async function destroyConnection (ctx) {
     const camera = ctx.params.camera_id;
     var request = {msg: 'kill', boxId: box, cameraId: camera};
     ws.send(JSON.stringify(request));
+    ctx.status = 200;
 }
 
 async function createProxy (ctx) {
@@ -32,15 +34,16 @@ async function createProxy (ctx) {
     //websocket answer for request of box
       //how to wait on a specific answer with websocket and await ? for the moment, use of sleep
     //create proxy
-    await sleep(2000);
-     	const p = proxy('51.15.227.253', {
-     	port: portToProxy,
-     	https: true,
-     	proxyReqPathResolver: (ctx) => { return '/axis-cgi/mjpg/video.cgi';}
-     });
-    console.log('Created Proxy');
+    //await sleep(2000);
+    // 	const p = proxy('51.15.227.253', {
+    // 	port: portToProxy,
+    // 	https: true,
+    // 	proxyReqPathResolver: (ctx) => { return '/axis-cgi/mjpg/video.cgi';}
+    // });
+    //console.log('Created Proxy');
     await p(ctx);
-    //ctx.body = {url: 'http://camera-stream.tk:'+portToProxy+'/axis-cgi/mjpg/video.cgi'}
+    ctx.body = {url: 'http://51.15.227.253:' + portToProxy + '/axis-cgi/mjpg/video.cgi'};
+    ctx.status = 200;
 }
 
 module.exports = {
