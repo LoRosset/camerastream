@@ -34,7 +34,7 @@ async function createProxy (ctx) {
     //websocket answer for request of box
       //how to wait on a specific answer with websocket and await ? for the moment, use of sleep
     //create proxy
-    //await sleep(2000);
+    await sleep(2000);
     // 	const p = proxy('51.15.227.253', {
     // 	port: portToProxy,
     // 	https: true,
@@ -43,7 +43,6 @@ async function createProxy (ctx) {
     //console.log('Created Proxy');
     //await p(ctx);
     ctx.body = {url: 'http://51.15.227.253:' + portToProxy + '/axis-cgi/mjpg/video.cgi'};
-    ctx.status = 200;
 }
 
 module.exports = {
