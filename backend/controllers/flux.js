@@ -41,7 +41,7 @@ async function createProxy (ctx) {
     // 	proxyReqPathResolver: (ctx) => { return '/axis-cgi/mjpg/video.cgi';}
     // });
     //console.log('Created Proxy');
-    await p(ctx);
+    //await p(ctx);
     ctx.body = {url: 'http://51.15.227.253:' + portToProxy + '/axis-cgi/mjpg/video.cgi'};
     ctx.status = 200;
 }
