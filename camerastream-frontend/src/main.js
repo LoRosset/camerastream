@@ -6,12 +6,10 @@ import router from './router'
 import Vuetify from 'vuetify'
 import store from './store'
 import axios from './backend/vue-axios'
-import VueNativeSock from 'vue-native-websocket'
 import('../node_modules/vuetify/dist/vuetify.min.css')
 import('../node_modules/material-icons/iconfont/material-icons.css')
 
 Vue.use(Vuetify)
-Vue.use(VueNativeSock, 'wss://camera-stream.tk:8001', {store: store})
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

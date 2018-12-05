@@ -87,20 +87,17 @@ export default {
     },
 
     askForCamera: function () {
-      var request = {msg: 'getCameras', boxId: this.box}
-      this.$socket.send(JSON.stringify(request))
+      this.$http.get('/flux/'+ this.box)
     },
 
     askForConnexion: function (camera) {
-      // window.location = 'https://camera-stream.tk:' + 3000 + '/v1/app/flux/' + this.box + '/' + camera
       this.$http.get('/flux/'+ this.box + '/' + camera).then(request => {
         this.url = request.data.url
       })
     },
 
     askForKill: function (camera) {
-      var request = {msg: 'kill', boxId: this.box, cameraId: camera}
-      this.$socket.send(JSON.stringify(request))
+      this.$http.get('/flux/'+ this.box + '/' + camera + '/destroy')
       this.url = null
     }
   }

@@ -11,7 +11,9 @@ const server = https.createServer({
   ca: fs.readFileSync('/etc/letsencrypt/archive/camera-stream.tk/fullchain1.pem'),
   rejectUnauthorized: false
 });
-const wss = new WebSocket.Server({ server, clientTracking: true });
+
+
+const wss = new WebSocket.Server({ server });
 
 const API_URL = 'https://camera-stream.tk:3000/v1/app';
 const TOKEN = jwt.sign({ admin: true }, 'A very secret key');
@@ -24,28 +26,39 @@ wss.on('connection', function connection(ws, req) {
 
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
-    if(message.includes("mac")){
-      //this verify the client, if it is a box or not, however this could be implemented in a VerifyClient function to be more secure
+    if(message.includes("verify")){
       var obj = JSON.parse(message);
-      var macAddress = obj.mac;
-      var trueBox = false;
-      var connection = null;
-      axios.get(API_URL + '/box', { headers: { Authorization: AUTH } }).then(response => {
-        var boxArray = response.data;
-        boxArray.forEach(function(box) {
-          if(box.ip === ip && box.mac === macAddress){
-            console.log('Connection accepted.');
-            trueBox = true;
-            ws._id = box._id;
-            //ws.proxyPort = {};
-            return;
+      if(obj.hasOwnProperty('box')){
+        var macAddress = obj.box;
+        var trueBox = false;
+        var connection = null;
+        axios.get(API_URL + '/box', { headers: { Authorization: AUTH } }).then(response => {
+          var boxArray = response.data;
+          boxArray.forEach(function(box) {
+            if(box.ip === ip && box.mac === macAddress){
+              console.log('Connection accepted.');
+              trueBox = true;
+              ws._id = box._id;
+              //ws.proxyPort = {};
+              return;
+            }
+          });
+          if (trueBox == false) {
+            console.log('Close connection for %s', ip);
+            ws.close();
           }
-        });
-        if (trueBox == false) {
-        console.log('Close connection');
-        ws.close();
+        })
+      }
+/*      else if(obj.hasOwnProperty('api')){
+        var api = obj.api;
+        if(api === 'i am the real api' && ip === '51.15.227.253'){
+          ws._id = 'api';
         }
-      })
+        else {
+          console.log('Close connection for %s', ip);
+          ws.close();
+        }
+      }*/
     }
     else if(message.includes("getCameras")){
       var request = JSON.parse(message);
@@ -71,7 +84,7 @@ wss.on('connection', function connection(ws, req) {
       var request = JSON.parse(message);
       var id = request.boxId;
       var port = request.port;
-      var obj = { msg: 'connexion', camera: request.cameraId, port: port}
+      var obj = { msg: 'connexion', camera: request.cameraId, port: port, boxId: id}
       console.log("Request for connexion on camera for box:%s, on port:%s", id, port);
       wss.clients.forEach(function each(client) {
         if(client._id === id){
@@ -79,23 +92,24 @@ wss.on('connection', function connection(ws, req) {
         }
       });
     }
-    // else if(message.includes("proxyPort")){
-    //   var request = JSON.parse(message);
-    //   var id = request.boxId;
-    //   var camera = request.cameraId;
-    //   var port = request.port;
-    //   console.log("Register proxyPort for box:%s", id);
-    //   wss.clients.forEach(function each(client) {
-    //     if(client._id === id){
-    //       client.proxyPort[camera] = port;
-    //     }
-    //   });
-    // }
+    else if(message.includes("stream")){
+       var request = JSON.parse(message);
+       var id = request.boxId;
+       var camera = request.cameraId;
+       var open = request.open;
+       console.log("Stream:%s for box:%s", open, id);
+/*       var answer = {msg: id, camera: camera};
+       wss.clients.forEach(function each(client) {
+         if(client._id === 'api'){
+           client.send(JSON.stringify(answer));
+         }
+      });*/
+    }
     else if(message.includes("kill")){
       var request = JSON.parse(message);
       var id = request.boxId;
       var camera = request.cameraId;
-      var obj = { msg: 'kill', camera: camera}
+      var obj = { msg: 'kill', camera: camera, boxId: id}
       console.log("Request for killing connexion on %s for box id: %s", camera, id);
       wss.clients.forEach(function each(client) {
         if(client._id === id){

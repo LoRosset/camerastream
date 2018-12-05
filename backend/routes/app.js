@@ -60,7 +60,8 @@ router.delete('/user/:user_id/home/:home_id/box/:box_id/camera/:camera_id', jwt,
 
 			//-----CONNEXION ROUTE-----//
 router.get('/flux/:box_id/:camera_id', jwt, flux_controller.createProxy)
-
+router.get('/flux/:box_id/:camera_id/destroy', jwt, flux_controller.destroyConnection)
+router.get('/flux/:box_id', jwt, flux_controller.getCameras)
 //router.post('/flux', jwt, flux_controller.createProxy)
 
 module.exports = router.routes()
