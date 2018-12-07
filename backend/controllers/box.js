@@ -57,10 +57,22 @@ const camera_controller = require('./camera')
 	}
 
 	async function destroy (ctx) {
-		//Find Box based on id
+		//Find Box User Cameras based on id
 		const id = ctx.params.box_id
 		const box = await Box.findById(id)
-
+		const user = await User.findById(box.user)
+		user.box = 0
+		if(box.cameras.length != 0){
+			//delete all current cameras from the box
+			for (var i = box.cameras.length - 1; i >= 0; i--) {
+				const camera = await Camera.findById(box.cameras[i])
+				const deletedCamera = await camera.remove()
+			}
+			box.cameras = []
+		}		
+		
+		//Update user
+		const savedUser = await user.save()
 		//Delete box from database
 		const deletedBox = await box.remove()
 		ctx.body = deletedBox

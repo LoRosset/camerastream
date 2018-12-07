@@ -87,17 +87,17 @@ export default {
     },
 
     askForCamera: function () {
-      this.$http.get('/flux/'+ this.box)
+      this.$http.get('/flux/' + this.box)
     },
 
     askForConnexion: function (camera) {
-      this.$http.get('/flux/'+ this.box + '/' + camera).then(request => {
+      this.$http.get('/flux/' + this.box + '/' + camera).then(request => {
         this.url = request.data.url
       })
     },
 
     askForKill: function (camera) {
-      this.$http.get('/flux/'+ this.box + '/' + camera + '/destroy')
+      this.$http.delete('/flux/' + this.box + '/' + camera)
       this.url = null
     }
   }

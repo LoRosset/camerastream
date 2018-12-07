@@ -19,21 +19,22 @@ const jwt = require('jsonwebtoken');
 		ctx.body = savedUser
 	}
 
-	async function update (ctx) {
-		//Find User based on id
-		const id = ctx.params.user_id
-		const user = await User.findById(id)
-
-		//Update user in database
-		const updatedUser = await user.save()
-		ctx.body = updatedUser
-	}
-
 	async function destroy (ctx) {
 		//Find User based on id
 		const id = ctx.params.user_id
 		const user = await User.findById(id)
-
+		//Find Box Cameras based on id
+		const box = await Box.findById(user.box)
+		if(box.cameras.length != 0){
+			//delete all current cameras from the box
+			for (var i = box.cameras.length - 1; i >= 0; i--) {
+				const camera = await Camera.findById(box.cameras[i])
+				const deletedCamera = await camera.remove()
+			}
+			box.cameras = []
+		}		
+		//Delete box from database
+		const deletedBox = await box.remove()
 		//Delete user from database
 		const deletedUser = await user.remove()
 		ctx.body = deletedUser
@@ -68,7 +69,6 @@ module.exports = {
 	findAll,
 	find,
 	create,
-	update,
 	destroy,
 	control
 }

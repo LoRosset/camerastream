@@ -10,58 +10,45 @@ const jwt = require('../middlewares/jwt')
 
 //Routes path
 
-			//-----USER ROUTES-----//
-//GET a user
-router.get('/user/:user_id', jwt, user_controller.find) 
-
-//GET list of all users
-router.get('/user', jwt, user_controller.findAll)
-
-//CREATE a user
-router.post('/user/create', jwt, user_controller.create)
-
-//UPDATE a user
-router.post('/user/:user_id/update', jwt, user_controller.update)
-
-//DELETE a user
-router.delete('/user/:user_id', jwt, user_controller.destroy)
-
 //POST login information for authentification
 router.post('/login', user_controller.control)
 
+			//-----USER ROUTES-----//
+//GET a user
+router.get('/user/:user_id', jwt, user_controller.find) 
+//GET list of all users
+router.get('/user', jwt, user_controller.findAll)
+//CREATE a user
+router.post('/user/create', jwt, user_controller.create)
+//DELETE a user
+router.delete('/user/:user_id', jwt, user_controller.destroy)
 
 			//-----BOX ROUTES-----//
-//GET boxes for a specific home
-//router.get('/user/:user_id/home/:home_id/', jwt, box_controller.find)
+//GET list of all boxes
 router.get('/box', jwt, box_controller.find)
-
+//GET a box
 router.get('/box/:box_id', jwt, box_controller.findId)
-//CREATE a box for a specific home
-router.post('/user/:user_id/box/create', jwt, box_controller.create)
-
 //UPDATE a specific box
 router.post('/box/:box_id', jwt, box_controller.updateCameras)
-
 //DELETE a specific box
-router.delete('/user/:user_id/home/:home_id/box/:box_id', jwt, box_controller.destroy)
+router.delete('/box/:box_id', jwt, box_controller.destroy)
+//CREATE a box for a user
+router.post('/box/create/user/:user_id', jwt, box_controller.create)
 			
 			//-----CAMERA ROUTES-----//
 //GET a specific camera
 router.get('/camera/:camera_id/', jwt, camera_controller.find)
-
 //CREATE a camera for a specific box
-router.post('/box/:box_id/camera/create', jwt, camera_controller.create)
-
-//UPDATE cameras
-router.post('/box/:box_id/camera/:camera_id', jwt, camera_controller.update)
-
+router.post('/camera/create/box/:box_id', jwt, camera_controller.create)
 //DELETE a specific camera
-router.delete('/user/:user_id/home/:home_id/box/:box_id/camera/:camera_id', jwt, camera_controller.destroy)
+router.delete('/camera/:camera_id', jwt, camera_controller.destroy)
 
-			//-----CONNEXION ROUTE-----//
+			//-----CONNEXION ROUTES-----//
+//CREATE a connexion and a proxy
 router.get('/flux/:box_id/:camera_id', jwt, flux_controller.createProxy)
-router.get('/flux/:box_id/:camera_id/destroy', jwt, flux_controller.destroyConnection)
+//DELETE a connexion and a proxy
+router.delete('/flux/:box_id/:camera_id', jwt, flux_controller.destroyConnection)
+//GET actual list of cameras of a box
 router.get('/flux/:box_id', jwt, flux_controller.getCameras)
-//router.post('/flux', jwt, flux_controller.createProxy)
 
 module.exports = router.routes()

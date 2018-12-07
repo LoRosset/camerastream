@@ -6,8 +6,6 @@
  		name: { type: String},
 	 	ip: { type: String},
 	 	box: { type: mongoose.Schema.ObjectId, ref: 'Box'}
-	 	//type: { type: String},
-	 	//status: { type: Boolean}
  	}, 
  	{ timestamps: true }
  );

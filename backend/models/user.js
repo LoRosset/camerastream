@@ -5,7 +5,6 @@
  const UserSchema = new mongoose.Schema(
  	{
 	 	name: { type: String},
-	 	//home: { type: mongoose.Schema.ObjectId, ref: 'Home'},
 	 	box: { type: mongoose.Schema.ObjectId, ref: 'Box'},
 	 	username: {type: String, min: 3, max:20},
 	 	password: {type: String, min: 6, max: 40},
